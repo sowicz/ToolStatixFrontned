@@ -1,29 +1,21 @@
 import type { FC } from "react";
 
 interface Props {
-  title?: string;
-  open: boolean;
-  setOpen: (v: boolean) => void;
+  onMenuClick: () => void;
 }
 
-const Topbar: FC<Props> = ({ title = "Dashboard", open, setOpen }) => {
+const TopBar: FC<Props> = ({ onMenuClick }) => {
   return (
-    <header className="h-14 w-full border-b border-gray-300 bg-white flex items-center justify-between px-4 md:pl-8">
-      <div className="flex items-center gap-3">
-        {/* on desktop we keep some left padding because content is shifted by md:ml-64 */}
-        <h2 className="text-lg font-semibold">{title}</h2>
-      </div>
-
-      {/* hamburger only on mobile */}
-      <button
-        className="md:hidden p-2 border border-gray-300 rounded"
-        onClick={() => setOpen(!open)}
-        aria-label="Toggle menu"
-      >
+    <header className="md:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-white border-b border-gray-300 flex items-center px-4">
+      <button onClick={onMenuClick} aria-label="Open menu">
         ☰
       </button>
+
+      <span className="ml-4 font-semibold text-gray-700">
+        TOOLSTATIX
+      </span>
     </header>
   );
 };
 
-export default Topbar;
+export default TopBar;

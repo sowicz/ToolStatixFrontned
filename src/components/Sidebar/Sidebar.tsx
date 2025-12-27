@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { SidebarLink } from "./SidebarLink";
-import homeIcon from "../../assets/homeIcon.svg";
 import "./SidebarFont.css";
 
 interface Props {
@@ -13,10 +12,11 @@ const Sidebar: FC<Props> = ({ open, setOpen }) => {
     <>
       <nav
         className={`
-          fixed top-0 left-0 z-30
+          fixed top-0 left-0 z-40
           h-screen w-full md:w-64
           bg-white border-r border-gray-300
-          p-4 pt-6 transition-transform duration-200
+          p-4 pt-6
+          transition-transform duration-300
           ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
