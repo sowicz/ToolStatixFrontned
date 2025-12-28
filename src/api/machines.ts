@@ -1,4 +1,4 @@
-import type { Machine } from "../types/Machine";
+import type { Machine } from "../types/machine";
 
 const API = 'http://localhost:8000';
 

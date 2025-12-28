@@ -1,51 +1,48 @@
-const API = "http://localhost:8000/opcua";
+import { apiFetch } from "./apiClient";
+import type { DataSourceStatus } from "../types/dashboard";
 
-export async function opcuaConnect(id: number) {
-  const res = await fetch(`${API}/connect/${id}`, {
+/* ===========================
+   DATA SOURCES
+   =========================== */
+
+export function fetchOpcuaStatusAll() {
+  return apiFetch<DataSourceStatus[]>(
+    "/opcua/status/data-sources-all"
+  );
+}
+
+export function connectDataSource(id: number) {
+  return apiFetch<void>(`/opcua/connect/${id}`, {
     method: "POST",
   });
-
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
 }
 
-export async function opcuaDisconnect(id: number) {
-  const res = await fetch(`${API}/disconnect/${id}`, {
+export function disconnectDataSource(id: number) {
+  return apiFetch<void>(`/opcua/disconnect/${id}`, {
     method: "POST",
   });
-
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
 }
 
-export async function startSubscription(tagId: number) {
-  const res = await fetch(`${API}/start-subscription/${tagId}`, {
+/* ===========================
+   TAG SUBSCRIPTIONS
+   =========================== */
+
+export function startSubscription(tagId: number) {
+  return apiFetch<void>(`/opcua/start-subscription/${tagId}`, {
     method: "POST",
   });
-
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
 }
 
-export async function stopSubscription(tagId: number) {
-  const res = await fetch(`${API}/stop-subscription/${tagId}`, {
+export function stopSubscription(tagId: number) {
+  return apiFetch<void>(`/opcua/stop-subscription/${tagId}`, {
     method: "POST",
   });
-
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
 }
 
-export async function getStatus(tagId: number) {
-  const res = await fetch(`${API}/status/${tagId}`);
-
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
+export function getTagStatus(tagId: number) {
+  return apiFetch(`/opcua/status/${tagId}`);
 }
 
-export async function getActiveTags() {
-  const res = await fetch(`${API}/active-tags`);
-
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
+export function getActiveTags() {
+  return apiFetch<number[]>(`/opcua/active-tags`);
 }

@@ -9,7 +9,6 @@ interface SidebarLinkProps {
 
 export const SidebarLink = ({ to, label, icon,onClick }: SidebarLinkProps) => {
   return (
-    <li>
       <NavLink
         to={to}
         onClick={onClick}
@@ -22,6 +21,5 @@ export const SidebarLink = ({ to, label, icon,onClick }: SidebarLinkProps) => {
         {icon && <span className="w-5 h-5">{icon}</span>}
         <span>{label}</span>
       </NavLink>
-    </li>
   );
 };

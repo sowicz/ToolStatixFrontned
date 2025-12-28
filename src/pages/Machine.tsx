@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getMachines, createMachine } from "../api/machines";
-import type { Machine } from "../types/Machine";
+import type { Machine } from "../types/machine";
 
 export default function MachinePage() {
   const [machines, setMachines] = useState<Machine[]>([]);

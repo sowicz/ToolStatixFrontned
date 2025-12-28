@@ -1,10 +1,10 @@
 import { useState } from "react";
 import {
-  opcuaConnect,
-  opcuaDisconnect,
+  connectDataSource,
+  disconnectDataSource,
   startSubscription,
   stopSubscription,
-  getStatus,
+  getTagStatus,
   getActiveTags,
 } from "../api/opcua";
 
@@ -66,7 +66,7 @@ export default function Drivers() {
           {/* Buttons */}
           <div className="space-y-3">
             <button
-              onClick={() => handle(() => opcuaConnect(Number(dataSourceId)))}
+              onClick={() => handle(() => connectDataSource(Number(dataSourceId)))}
               className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded"
             >
               Connect
@@ -74,7 +74,7 @@ export default function Drivers() {
 
             <button
               onClick={() =>
-                handle(() => opcuaDisconnect(Number(dataSourceId)))
+                handle(() => disconnectDataSource(Number(dataSourceId)))
               }
               className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded"
             >
@@ -96,7 +96,7 @@ export default function Drivers() {
             </button>
 
             <button
-              onClick={() => handle(() => getStatus(Number(tagId)))}
+              onClick={() => handle(() => getTagStatus(Number(tagId)))}
               className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded"
             >
               Status
