@@ -50,7 +50,7 @@ export default function App() {
         )}
         {/* CONTENT */}
         <div className="flex-1 flex flex-col min-h-screen md:ml-64">
-          <main className="flex-1 overflow-y-auto bg-gray-100 p-4 pt-20 md:pt-4">
+          <main className="flex-1 overflow-y-auto bg-gray-100 p-8 pt-20 md:pt-4">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/machine" element={<Machine />} />

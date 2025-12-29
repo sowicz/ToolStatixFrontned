@@ -3,7 +3,7 @@ import type { MainTag } from "../types/dashboard";
 export default function TagStatus({ tag }: { tag: MainTag }) {
   return (
     <div className="flex justify-between text-sm">
-      <span>{tag.tag_name}</span>
+      <span><b>Tag:</b> {tag.tag_name}</span>
 
       <span
         className={`font-medium ${
