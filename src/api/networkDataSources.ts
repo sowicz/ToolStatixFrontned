@@ -1,11 +1,13 @@
 export interface NetworkDataSourceCreate {
-  name: string;
-  ip: string;
+  machine_id: number;
+  protocol: string;       // np. "opc-ua"
+  server_url: string;
   port: number;
 }
 
 export interface NetworkDataSourceRead extends NetworkDataSourceCreate {
   id: number;
+  extra_config?: string;
 }
 
 const API_URL = "http://localhost:8000";
@@ -24,8 +26,8 @@ export async function createDataSource(data: NetworkDataSourceCreate) {
   });
 
   if (!res.ok) {
-    const err = await res.json();
-    throw new Error(err.detail || "Failed to create");
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || "Failed to create data source");
   }
 
   return res.json();
