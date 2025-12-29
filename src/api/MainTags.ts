@@ -1,30 +1,15 @@
-
-
-export interface MainTagRead {
-  id: number;
-  name: string;
-}
-
-export interface MainTagCreate {
-  name: string;
-}
+// api/MainTags.ts
+import type { MainTagCreate, MainTagRead } from "../types/MainTag";
 
 const API_URL = "http://localhost:8000";
 
-
-export async function getMainTags() {
-  const res = await fetch(`${API_URL}/tags`, {
-    method: "GET",
-  });
-
-  if (!res.ok) {
-    throw new Error("Failed to fetch main tags");
-  }
-
+export async function getMainTags(): Promise<MainTagRead[]> {
+  const res = await fetch(`${API_URL}/tags`, { method: "GET" });
+  if (!res.ok) throw new Error("Failed to fetch main tags");
   return res.json();
 }
 
-export async function addMainTag(data: { name: string }) {
+export async function addMainTag(data: MainTagCreate): Promise<MainTagRead> {
   const res = await fetch(`${API_URL}/add-tag`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -32,7 +17,8 @@ export async function addMainTag(data: { name: string }) {
   });
 
   if (!res.ok) {
-    throw new Error("Failed to add main tag");
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.detail || "Failed to add main tag");
   }
 
   return res.json();
