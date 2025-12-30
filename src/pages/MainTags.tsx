@@ -3,7 +3,7 @@ import {
   getMainTags,
   addMainTag
 } from "../api/MainTags";
-import type {MainTagCreate, MainTagRead} from "../types/MainTag";
+import type {MainTagCreate, MainTagRead} from "../types/mainTagTypes";
 import { fetchDataSources } from "../api/networkDataSources";
 import type { NetworkDataSourceRead } from "../types/networkDataSourcesTypes";
 

@@ -1,5 +1,5 @@
 import { apiFetch } from "./apiClient";
-import type { MainTagCreate, MainTagRead } from "../types/MainTag";
+import type { MainTagCreate, MainTagRead } from "../types/mainTagTypes";
 
 
 export async function getMainTags() {
