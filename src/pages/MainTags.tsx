@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import {
   getMainTags,
-  addMainTag,
+  addMainTag
 } from "../api/MainTags";
 import type {MainTagCreate, MainTagRead} from "../types/MainTag";
-import { fetchDataSources, type NetworkDataSourceRead } from "../api/networkDataSources";
+import { fetchDataSources } from "../api/networkDataSources";
+import type { NetworkDataSourceRead } from "../types/networkDataSourcesTypes";
 
 
 
@@ -35,7 +36,7 @@ export default function MainTags() {
       const data = await getMainTags();
       setTags(data);
     } catch (e: any) {
-      setError(e.message || "Failed to load tags");
+      setError("Failed to load tags");
     } finally {
       setLoading(false);
     }
@@ -48,7 +49,7 @@ export default function MainTags() {
       const sources = await fetchDataSources();
       setDataSources(sources);
     } catch (e: any) {
-      setError(e.message || "Failed to load data sources");
+      setError("Failed to load data sources");
     } finally {
       setLoadingSources(false);
     }
@@ -272,6 +273,14 @@ export default function MainTags() {
 
       )}
 
+      {/* ERROR */}
+      {error && (
+        <div className="mt-4 flex items-center gap-2 text-red-600 text-sm">
+          <span>⚠</span>
+          <span>{error}</span>
+        </div>
+      )}
+
       {/* LIST */}
       {loading ? (
         <p className="text-gray-500">Loading tags...</p>
@@ -288,7 +297,7 @@ export default function MainTags() {
                 <div className="font-semibold">{tag.tag_name}</div>
 
                 <div className="text-xs text-gray-400">
-                  DS #{tag.network_data_sources.id}
+                  DataSource id #{tag.network_data_sources.id}
                 </div>
               </div>
 
@@ -312,13 +321,7 @@ export default function MainTags() {
         </ul>
       )}
 
-      {/* ERROR */}
-      {error && (
-        <div className="mt-4 flex items-center gap-2 text-red-600 text-sm">
-          <span>⚠</span>
-          <span>{error}</span>
-        </div>
-      )}
+
     </div>
   );
 }

@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import {
   fetchDataSources,
   createDataSource,
-  type NetworkDataSourceCreate,
-  type NetworkDataSourceRead,
 } from "../api/networkDataSources";
+import type { NetworkDataSourceCreate, NetworkDataSourceRead } from "../types/networkDataSourcesTypes";
 import { getMachines } from "../api/machines";
 import type { Machine } from "../types/Machine";
 
