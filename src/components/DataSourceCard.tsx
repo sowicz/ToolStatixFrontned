@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { DataSourceStatus } from "../types/dashboard";
+import ModalTagData from "./ModalTagData"
 import TagStatus from "./TagStatus";
 import {
   connectDataSource,
@@ -7,6 +8,7 @@ import {
   startSubscription,
   stopSubscription,
 } from "../api/opcua";
+import TagDataContent from "./tagDataContent";
 
 interface Props {
   data: DataSourceStatus;
@@ -15,6 +17,8 @@ interface Props {
 
 export default function DataSourceCard({ data, onRefresh  }: Props) {
   const [loading, setLoading] = useState(false);
+  const [infoTagId, setInfoTagId] = useState<number | null>(null);
+
 
   async function handleConnect() {
     setLoading(true);
@@ -88,32 +92,48 @@ export default function DataSourceCard({ data, onRefresh  }: Props) {
 
         {/* Tags */}
         <div className="mt-4 space-y-3 flex-1">
-        {data.main_tags.map(tag => (
-            <div
-            key={tag.tag_id}
-            className="flex items-center gap-4"
-            >
-            <div className="flex-1">
-                <TagStatus tag={tag} />
-            </div>
+        {/* <div className="flex items-center gap-2"> */}
 
-            {!tag.active ? (
+          {data.main_tags.map(tag => (
+            <div
+              key={tag.tag_id}
+              className="flex items-center gap-4"
+            >
+              <div className="flex-1">
+                <TagStatus tag={tag} />
+              </div>
+
+              <div className="flex items-center gap-2">
+                {!tag.active ? (
+                  <button
+                    onClick={() => handleStartSubscription(tag.tag_id)}
+                    className="px-4 py-1 text-xs rounded bg-blue-600 text-white hover:bg-blue-700"
+                  >
+                    Start
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => handleStopSubscription(tag.tag_id)}
+                    className="px-4 py-1 text-xs rounded bg-rose-700 text-white hover:bg-rose-800"
+                  >
+                    Stop
+                  </button>
+                )}
+
+                {/* INFO BUTTON */}
                 <button
-                onClick={() => handleStartSubscription(tag.tag_id)}
-                className="px-4 py-1 text-xs rounded bg-blue-600 text-white hover:bg-blue-700"
+                  onClick={() => setInfoTagId(tag.tag_id)}
+                  className="w-7 h-7 flex items-center justify-center rounded-md
+                            border border-gray-300 text-gray-500 text-xs
+                            hover:bg-gray-100 hover:text-gray-700"
+                  title="Show tag statistics"
                 >
-                Start
+                  i
                 </button>
-            ) : (
-                <button
-                onClick={() => handleStopSubscription(tag.tag_id)}
-                className="px-4 py-1 text-xs rounded bg-rose-900 text-white hover:bg-rose-700"
-                >
-                Stop
-                </button>
-            )}
+              </div>
             </div>
-        ))}
+          ))}
+
         </div>
 
       {/* Actions */}
@@ -136,6 +156,15 @@ export default function DataSourceCard({ data, onRefresh  }: Props) {
           </button>
         )}
       </div>
+      {infoTagId !== null && (
+      <ModalTagData
+        open={infoTagId !== null}
+        onClose={() => setInfoTagId(null)}
+        title="Dane historyczne taga"
+      >
+        {infoTagId && <TagDataContent tagId={infoTagId} />}
+      </ModalTagData>
+      )}
     </div>
   );
 }
