@@ -79,4 +79,8 @@ npm run dev
 
 ### Actual data collected for tool
 
-![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts5.png "Tool actual data")
+![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts6.png "Tool actual data")
+
+### Actual data collected for tool part 2
+
+![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts7.png "Tool actual data part 2")
