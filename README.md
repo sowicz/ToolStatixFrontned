@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# ToolStatix - zbieranie danych do przebiegu narzędzi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend aplikacji toolstatix - do zbierania danych narzędzi CNC w oparciu o parametry prądu,przepływu czy inne.
+Dane zbierane w oparciu o protokol OPCua, z możliwością rozbudowy w przyszłości o inne protokoły
 
-Currently, two official plugins are available:
+(Backend ToolStatix)[https://github.com/sowicz/ToolStatix]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Zdjęcia poniżej
 
-## React Compiler
+## TODO
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Dodać ściąganie raportów narzędzia na desktop
+- Dodać edycje istniejących rekordkow w DB
 
-## Expanding the ESLint configuration
+## Funkcje
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Zarządzanie **Network Data Sources**
+- Obsługa połączeń **OPC UA**
+- Start / Stop subskrypcji tagów
+- Monitoring statusu tagów
+- Podgląd danych historycznych na wykresach
+- UI oparty o React + Tailwind
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Frontend
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- React + TypeScript
+- Tailwind CSS
+- Recharts
+
+### Backend
+
+- FastAPI
+- OPC UA (`asyncua`)
+- REST API
+
+## Uruchomienie frontend
+
+1. Zaisntalować pakiety
+
+```
+npm install
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Utworzyć plik .env a w nim link do backend API (toolstatix API)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+.env
+
+VITE_API_BASE_URL=http://localhost:8000
+
+```
+
+3. Uruchamiamy projekt
+
+```
+npm run dev
+```
+
+## Zdjęcia
+
+### Dashboard
+
+![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts1.png "Dashboard - OPCUA connection cards")
+
+### Connected to OPCua with active tags
+
+![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts2.png "Activate tags")
+
+### Logs data gathered
+
+![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts3_logs.png "Logs from backend")
+
+### Main tags
+
+![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts5.png "Main tags")
+
+### Actual data collected for tool
+
+![alt](https://github.com/sowicz/ToolStatixFrontned/blob/main/toolstatixFrontendPics/ts5.png "Tool actual data")
